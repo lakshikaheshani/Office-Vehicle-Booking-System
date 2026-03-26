@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Office Vehicle Booking System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(6, 18, 38, 0.78), rgba(10, 25, 50, 0.82)),
+        url("https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80")
+        center/cover no-repeat fixed;
+      color: #fff;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .hero-title {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .hero-title h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+
+    .hero-title p {
+      margin-top: 8px;
+      color: #dbeafe;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.28);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .login-card {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .sub-text {
+      color: #dbeafe;
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .label {
+      display: block;
+      font-size: 14px;
+      color: #dbeafe;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 15px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: 0.25s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #dbeafe;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(147, 197, 253, 0.9);
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+      background: rgba(255,255,255,0.18);
+    }
+
+    select option {
+      color: #111827;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px 16px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s ease;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.42);
+    }
+
+    .logout-btn {
+      width: auto;
+      padding: 11px 18px;
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      box-shadow: 0 8px 18px rgba(239, 68, 68, 0.34);
+    }
+
+    .notify-btn {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      box-shadow: 0 8px 18px rgba(22, 163, 74, 0.34);
+      margin-top: 8px;
+    }
+
+    .edit-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      box-shadow: 0 8px 18px rgba(245, 158, 11, 0.34);
+    }
+
+    .delete-btn {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 8px 18px rgba(239, 68, 68, 0.34);
+    }
+
+    .cancel-btn {
+      background: linear-gradient(135deg, #64748b, #475569);
+      box-shadow: 0 8px 18px rgba(100, 116, 139, 0.34);
+      margin-top: 10px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .top-bar h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+
+    .welcome-text {
+      color: #cfe4ff;
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 0.95rem;
+      color: #dbeafe;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .stat-box p {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .success {
+      background: rgba(34, 197, 94, 0.18);
+      color: #dcfce7;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.16);
+      color: #fee2e2;
+      border: 1px solid rgba(239, 68, 68, 0.32);
+    }
+
+    .info {
+      background: rgba(59, 130, 246, 0.16);
+      color: #dbeafe;
+      border: 1px solid rgba(59, 130, 246, 0.30);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    thead {
+      background: rgba(255,255,255,0.16);
+    }
+
+    th, td {
+      padding: 13px 12px;
+      text-align: left;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      vertical-align: top;
+    }
+
+    th {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    td {
+      color: #e5eefc;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .available {
+      background: rgba(34, 197, 94, 0.18);
+      color: #dcfce7;
+    }
+
+    .maintenance {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fef3c7;
+    }
+
+    .inactive {
+      background: rgba(148, 163, 184, 0.20);
+      color: #e2e8f0;
+    }
+
+    .demo-box {
+      margin-top: 18px;
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .demo-box p {
+      margin-bottom: 8px;
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .mini-note {
+      font-size: 12px;
+      color: #cfe4ff;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .action-btn {
+      width: auto;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin: 2px 4px 2px 0;
+      display: inline-block;
+    }
+
+    @media (max-width: 992px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .card {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .hero-title h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero-title">
+      <h1>Office Vehicle Booking System</h1>
+      <p>Vehicle booking, driver assignment, date and time blocking, and instant WhatsApp driver notification.</p>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginSection" class="card login-card">
+      <h2 class="section-title">Login Portal</h2>
+      <p class="sub-text">Login as Admin or Employee to manage bookings.</p>
+
+      <div id="loginMessage"></div>
+
+      <label class="label">Email</label>
+      <input type="email" id="loginEmail" placeholder="Enter your email">
+
+      <label class="label">Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password">
+
+      <button onclick="login()">Login</button>
+
+      <div class="demo-box">
+        <p><strong>Admin:</strong> admin@office.com / 1234</p>
+        <p><strong>Employee 1:</strong> employee1@office.com / 1234</p>
+        <p><strong>Employee 2:</strong> employee2@office.com / 1234</p>
+      </div>
+    </div>
+
+    <!-- ADMIN SECTION -->
+    <div id="adminSection" class="hidden">
+      <div class="card">
+        <div class="top-bar">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <div class="welcome-text" id="adminWelcome"></div>
+          </div>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="grid-3">
+          <div class="stat-box">
+            <h3>Total Vehicles</h3>
+            <p id="totalVehicles">0</p>
+          </div>
+          <div class="stat-box">
+            <h3>Total Users</h3>
+            <p id="totalUsers">0</p>
+          </div>
+          <div class="stat-box">
+            <h3>Total Bookings</h3>
+            <p id="totalBookings">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="section-title" id="vehicleFormTitle">Add New Vehicle</h3>
+          <div id="adminVehicleMessage"></div>
+
+          <input type="hidden" id="editVehicleId">
+
+          <label class="label">Vehicle Number</label>
+          <input type="text" id="vehicleNumber" placeholder="Ex: CAR-005">
+
+          <label class="label">Vehicle Name</label>
+          <input type="text" id="vehicleName" placeholder="Ex: Toyota Hiace">
+
+          <label class="label">Vehicle Type</label>
+          <input type="text" id="vehicleType" placeholder="Ex: Van / Car / Bus / SUV">
+
+          <label class="label">Seat Capacity</label>
+          <input type="number" id="seatCapacity" placeholder="Enter seat capacity">
+
+          <label class="label">Driver Name</label>
+          <input type="text" id="driverName" placeholder="Ex: Sandu">
+
+          <label class="label">Driver Phone</label>
+          <input type="text" id="driverPhone" placeholder="Ex: 0781300771">
+
+          <label class="label">Driver Email</label>
+          <input type="email" id="driverEmail" placeholder="Ex: driver@gmail.com">
+
+          <label class="label">Vehicle Status</label>
+          <select id="vehicleStatus">
+            <option value="Available">Available</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <button id="vehicleSubmitBtn" onclick="addOrUpdateVehicle()">Add Vehicle</button>
+          <button id="cancelEditBtn" class="cancel-btn hidden" onclick="cancelEditVehicle()">Cancel Edit</button>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title">System Notes</h3>
+          <p class="sub-text">
+            Each vehicle includes its assigned driver. Once a booking is created, the system can notify the driver through WhatsApp.
+          </p>
+          <div class="demo-box">
+            <p>• Same vehicle cannot be booked for overlapping time.</p>
+            <p>• Driver contact details are stored per vehicle.</p>
+            <p>• Booking success can directly open WhatsApp message to the driver.</p>
+            <p>• Admin can edit or delete vehicles from the vehicle list.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">Vehicle List</h3>
+        <div class="table-wrap" id="vehicleTableContainer"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">All Bookings</h3>
+        <div class="table-wrap" id="allBookingsContainer"></div>
+      </div>
+    </div>
+
+    <!-- EMPLOYEE SECTION -->
+    <div id="employeeSection" class="hidden">
+      <div class="card">
+        <div class="top-bar">
+          <div>
+            <h2>Employee Dashboard</h2>
+            <div class="welcome-text" id="employeeWelcome"></div>
+          </div>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="section-title">Book a Vehicle</h3>
+          <div id="bookingMessage"></div>
+
+          <label class="label">Select Vehicle</label>
+          <select id="bookingVehicle" onchange="showBlockedTimes()">
+            <option value="">Select Vehicle</option>
+          </select>
+
+          <label class="label">Booking Date</label>
+          <input type="date" id="bookingDate" onchange="showBlockedTimes()">
+
+          <label class="label">Start Time</label>
+          <input type="time" id="startTime">
+
+          <label class="label">End Time</label>
+          <input type="time" id="endTime">
+
+          <label class="label">Purpose</label>
+          <input type="text" id="purpose" placeholder="Ex: Client visit">
+
+          <label class="label">Destination</label>
+          <select id="destination">
+            <option value="">Select Destination</option>
+            <option value="POB Office">POB Office</option>
+            <option value="Site Office">Site Office</option>
+          </select>
+
+          <button onclick="bookVehicle()">Confirm Booking</button>
+          <div class="mini-note">After booking, WhatsApp will open with a ready-made message for the assigned driver.</div>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title">Blocked Time Slots</h3>
+          <div id="blockedTimesContainer">
+            <div class="message info">Select vehicle and date to view blocked time slots.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">Available Vehicles & Drivers</h3>
+        <div class="table-wrap" id="employeeVehicleTable"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">My Bookings</h3>
+        <div class="table-wrap" id="myBookingsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function initializeData() {
+      if (!localStorage.getItem("users")) {
+        const defaultUsers = [
+          { id: 1, name: "System Admin", email: "admin@office.com", password: "1234", role: "admin" },
+          { id: 2, name: "Employee One", email: "employee1@office.com", password: "1234", role: "employee" },
+          { id: 3, name: "Employee Two", email: "employee2@office.com", password: "1234", role: "employee" }
+        ];
+        localStorage.setItem("users", JSON.stringify(defaultUsers));
+      }
+
+      if (!localStorage.getItem("vehicles")) {
+        const defaultVehicles = [
+          {
+            id: 1,
+            number: "CAR-001",
+            name: "Toyota Corolla",
+            type: "Car",
+            capacity: 4,
+            status: "Available",
+            driver_name: "Sandu",
+            driver_phone: "0781300771",
+            driver_email: "sandu@gmail.com"
+          },
+          {
+            id: 2,
+            number: "VAN-002",
+            name: "Nissan Caravan",
+            type: "Van",
+            capacity: 12,
+            status: "Available",
+            driver_name: "Nimal Silva",
+            driver_phone: "0772345678",
+            driver_email: "nimal@gmail.com"
+          },
+          {
+            id: 3,
+            number: "BUS-003",
+            name: "Mini Bus",
+            type: "Bus",
+            capacity: 25,
+            status: "Available",
+            driver_name: "Sunil Fernando",
+            driver_phone: "0773456789",
+            driver_email: "sunil@gmail.com"
+          },
+          {
+            id: 4,
+            number: "SUV-004",
+            name: "Mitsubishi Montero",
+            type: "SUV",
+            capacity: 7,
+            status: "Available",
+            driver_name: "Ajith Kumara",
+            driver_phone: "0774567890",
+            driver_email: "ajith@gmail.com"
+          }
+        ];
+        localStorage.setItem("vehicles", JSON.stringify(defaultVehicles));
+      }
+
+      if (!localStorage.getItem("bookings")) {
+        localStorage.setItem("bookings", JSON.stringify([]));
+      }
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("users")) || [];
+    }
+
+    function getVehicles() {
+      return JSON.parse(localStorage.getItem("vehicles")) || [];
+    }
+
+    function getBookings() {
+      return JSON.parse(localStorage.getItem("bookings")) || [];
+    }
+
+    function setVehicles(data) {
+      localStorage.setItem("vehicles", JSON.stringify(data));
+    }
+
+    function setBookings(data) {
+      localStorage.setItem("bookings", JSON.stringify(data));
+    }
+
+    function setCurrentUser(user) {
+      localStorage.setItem("currentUser", JSON.stringify(user));
+    }
+
+    function getCurrentUser() {
+      return JSON.parse(localStorage.getItem("currentUser"));
+    }
+
+    function clearCurrentUser() {
+      localStorage.removeItem("currentUser");
+    }
+
+    function showMessage(elementId, text, type) {
+      document.getElementById(elementId).innerHTML = `<div class="message ${type}">${text}</div>`;
+    }
+
+    function clearMessage(elementId) {
+      document.getElementById(elementId).innerHTML = "";
+    }
+
+    function login() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      const users = getUsers();
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (!user) {
+        showMessage("loginMessage", "Invalid email or password.", "error");
+        return;
+      }
+
+      setCurrentUser(user);
+      document.getElementById("loginEmail").value = "";
+      document.getElementById("loginPassword").value = "";
+      showDashboard();
+    }
+
+    function logout() {
+      clearCurrentUser();
+      document.getElementById("loginSection").classList.remove("hidden");
+      document.getElementById("adminSection").classList.add("hidden");
+      document.getElementById("employeeSection").classList.add("hidden");
+      clearMessage("loginMessage");
+    }
+
+    function showDashboard() {
+      const user = getCurrentUser();
+
+      if (!user) {
+        document.getElementById("loginSection").classList.remove("hidden");
+        document.getElementById("adminSection").classList.add("hidden");
+        document.getElementById("employeeSection").classList.add("hidden");
+        return;
+      }
+
+      document.getElementById("loginSection").classList.add("hidden");
+
+      if (user.role === "admin") {
+        document.getElementById("adminSection").classList.remove("hidden");
+        document.getElementById("employeeSection").classList.add("hidden");
+        document.getElementById("adminWelcome").textContent = `Welcome, ${user.name} (${user.email})`;
+        renderAdminDashboard();
+      } else {
+        document.getElementById("employeeSection").classList.remove("hidden");
+        document.getElementById("adminSection").classList.add("hidden");
+        document.getElementById("employeeWelcome").textContent = `Welcome, ${user.name} (${user.email})`;
+        renderEmployeeDashboard();
+      }
+    }
+
+    function resetVehicleForm() {
+      document.getElementById("editVehicleId").value = "";
+      document.getElementById("vehicleNumber").value = "";
+      document.getElementById("vehicleName").value = "";
+      document.getElementById("vehicleType").value = "";
+      document.getElementById("seatCapacity").value = "";
+      document.getElementById("driverName").value = "";
+      document.getElementById("driverPhone").value = "";
+      document.getElementById("driverEmail").value = "";
+      document.getElementById("vehicleStatus").value = "Available";
+      document.getElementById("vehicleFormTitle").textContent = "Add New Vehicle";
+      document.getElementById("vehicleSubmitBtn").textContent = "Add Vehicle";
+      document.getElementById("cancelEditBtn").classList.add("hidden");
+    }
+
+    function addOrUpdateVehicle() {
+      const editId = document.getElementById("editVehicleId").value;
+      const number = document.getElementById("vehicleNumber").value.trim();
+      const name = document.getElementById("vehicleName").value.trim();
+      const type = document.getElementById("vehicleType").value.trim();
+      const capacity = document.getElementById("seatCapacity").value.trim();
+      const driverName = document.getElementById("driverName").value.trim();
+      const driverPhone = document.getElementById("driverPhone").value.trim();
+      const driverEmail = document.getElementById("driverEmail").value.trim();
+      const status = document.getElementById("vehicleStatus").value;
+
+      if (!number || !name || !type || !capacity || !driverName || !driverPhone || !driverEmail) {
+        showMessage("adminVehicleMessage", "Please fill all vehicle and driver fields.", "error");
+        return;
+      }
+
+      const vehicles = getVehicles();
+      const duplicate = vehicles.some(v =>
+        v.number.toLowerCase() === number.toLowerCase() &&
+        String(v.id) !== String(editId)
+      );
+
+      if (duplicate) {
+        showMessage("adminVehicleMessage", "Vehicle number already exists.", "error");
+        return;
+      }
+
+      if (editId) {
+        const index = vehicles.findIndex(v => String(v.id) === String(editId));
+        if (index === -1) {
+          showMessage("adminVehicleMessage", "Vehicle not found.", "error");
+          return;
+        }
+
+        vehicles[index] = {
+          ...vehicles[index],
+          number,
+          name,
+          type,
+          capacity: Number(capacity),
+          status,
+          driver_name: driverName,
+          driver_phone: driverPhone,
+          driver_email: driverEmail
+        };
+
+        setVehicles(vehicles);
+        showMessage("adminVehicleMessage", "Vehicle updated successfully.", "success");
+      } else {
+        const newVehicle = {
+          id: Date.now(),
+          number,
+          name,
+          type,
+          capacity: Number(capacity),
+          status,
+          driver_name: driverName,
+          driver_phone: driverPhone,
+          driver_email: driverEmail
+        };
+
+        vehicles.push(newVehicle);
+        setVehicles(vehicles);
+        showMessage("adminVehicleMessage", "Vehicle added successfully.", "success");
+      }
+
+      resetVehicleForm();
+      renderAdminDashboard();
+    }
+
+    function editVehicle(vehicleId) {
+      const vehicles = getVehicles();
+      const vehicle = vehicles.find(v => String(v.id) === String(vehicleId));
+
+      if (!vehicle) {
+        showMessage("adminVehicleMessage", "Vehicle not found.", "error");
+        return;
+      }
+
+      document.getElementById("editVehicleId").value = vehicle.id;
+      document.getElementById("vehicleNumber").value = vehicle.number;
+      document.getElementById("vehicleName").value = vehicle.name;
+      document.getElementById("vehicleType").value = vehicle.type;
+      document.getElementById("seatCapacity").value = vehicle.capacity;
+      document.getElementById("driverName").value = vehicle.driver_name;
+      document.getElementById("driverPhone").value = vehicle.driver_phone;
+      document.getElementById("driverEmail").value = vehicle.driver_email;
+      document.getElementById("vehicleStatus").value = vehicle.status;
+
+      document.getElementById("vehicleFormTitle").textContent = "Edit Vehicle";
+      document.getElementById("vehicleSubmitBtn").textContent = "Update Vehicle";
+      document.getElementById("cancelEditBtn").classList.remove("hidden");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function cancelEditVehicle() {
+      resetVehicleForm();
+      clearMessage("adminVehicleMessage");
+    }
+
+    function deleteVehicle(vehicleId) {
+      const vehicles = getVehicles();
+      const bookings = getBookings();
+
+      const vehicle = vehicles.find(v => String(v.id) === String(vehicleId));
+      if (!vehicle) {
+        showMessage("adminVehicleMessage", "Vehicle not found.", "error");
+        return;
+      }
+
+      const hasBookings = bookings.some(b => String(b.vehicleId) === String(vehicleId));
+      if (hasBookings) {
+        showMessage("adminVehicleMessage", "Cannot delete this vehicle because it already has bookings.", "error");
+        return;
+      }
+
+      const confirmDelete = confirm(`Are you sure you want to delete ${vehicle.name} (${vehicle.number})?`);
+      if (!confirmDelete) return;
+
+      const updatedVehicles = vehicles.filter(v => String(v.id) !== String(vehicleId));
+      setVehicles(updatedVehicles);
+
+      showMessage("adminVehicleMessage", "Vehicle deleted successfully.", "success");
+      resetVehicleForm();
+      renderAdminDashboard();
+    }
+
+    function renderAdminDashboard() {
+      const vehicles = getVehicles();
+      const users = getUsers();
+      const bookings = getBookings();
+
+      document.getElementById("totalVehicles").textContent = vehicles.length;
+      document.getElementById("totalUsers").textContent = users.length;
+      document.getElementById("totalBookings").textContent = bookings.length;
+
+      renderVehicleTable("vehicleTableContainer", true);
+      renderAllBookings();
+    }
+
+    function renderEmployeeDashboard() {
+      renderVehicleOptions();
+      renderVehicleTable("employeeVehicleTable", false);
+      renderMyBookings();
+      showBlockedTimes();
+    }
+
+    function renderVehicleOptions() {
+      const vehicles = getVehicles();
+      const select = document.getElementById("bookingVehicle");
+      select.innerHTML = `<option value="">Select Vehicle</option>`;
+
+      vehicles
+        .filter(v => v.status === "Available")
+        .forEach(v => {
+          select.innerHTML += `<option value="${v.id}">${v.name} (${v.number}) - ${v.type}</option>`;
+        });
+    }
+
+    function renderVehicleTable(containerId, isAdmin = false) {
+      const vehicles = getVehicles();
+
+      if (vehicles.length === 0) {
+        document.getElementById(containerId).innerHTML = "<p>No vehicles found.</p>";
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Vehicle No</th>
+              <th>Vehicle Name</th>
+              <th>Type</th>
+              <th>Capacity</th>
+              <th>Status</th>
+              <th>Driver</th>
+              ${isAdmin ? "<th>Actions</th>" : ""}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      vehicles.forEach(v => {
+        let badgeClass = "available";
+        if (v.status === "Maintenance") badgeClass = "maintenance";
+        if (v.status === "Inactive") badgeClass = "inactive";
+
+        html += `
+          <tr>
+            <td>${v.number}</td>
+            <td>${v.name}</td>
+            <td>${v.type}</td>
+            <td>${v.capacity}</td>
+            <td><span class="badge ${badgeClass}">${v.status}</span></td>
+            <td>
+              <strong>${v.driver_name || "-"}</strong><br>
+              ${v.driver_phone || "-"}<br>
+              ${v.driver_email || "-"}
+            </td>
+            ${isAdmin ? `
+              <td>
+                <button class="action-btn edit-btn" onclick="editVehicle(${v.id})">Edit</button>
+                <button class="action-btn delete-btn" onclick="deleteVehicle(${v.id})">Delete</button>
+              </td>
+            ` : ""}
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      document.getElementById(containerId).innerHTML = html;
+    }
+
+    function timeToMinutes(time) {
+      const [hours, minutes] = time.split(":").map(Number);
+      return hours * 60 + minutes;
+    }
+
+    function isTimeOverlap(newStart, newEnd, existingStart, existingEnd) {
+      return timeToMinutes(newStart) < timeToMinutes(existingEnd) &&
+             timeToMinutes(newEnd) > timeToMinutes(existingStart);
+    }
+
+    function convertToWhatsappNumber(phone) {
+      const clean = phone.replace(/\D/g, "");
+      if (clean.startsWith("94")) return clean;
+      if (clean.startsWith("0")) return "94" + clean.substring(1);
+      return clean;
+    }
+
+    function sendDriverWhatsapp(vehicle, booking) {
+      if (!vehicle || !vehicle.driver_phone) {
+        alert("Driver phone number not found.");
+        return;
+      }
+
+      const phone = convertToWhatsappNumber(vehicle.driver_phone);
+      const message = `Hello ${vehicle.driver_name},
+
+You have a new vehicle booking.
+
+Vehicle: ${vehicle.name} (${vehicle.number})
+Date: ${booking.bookingDate}
+Time: ${booking.startTime} - ${booking.endTime}
+Booked By: ${booking.userName}
+Purpose: ${booking.purpose}
+Destination: ${booking.destination}
+
+Please be ready for the trip.`;
+
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    function bookVehicle() {
+      const currentUser = getCurrentUser();
+      const vehicleId = document.getElementById("bookingVehicle").value;
+      const bookingDate = document.getElementById("bookingDate").value;
+      const startTime = document.getElementById("startTime").value;
+      const endTime = document.getElementById("endTime").value;
+      const purpose = document.getElementById("purpose").value.trim();
+      const destination = document.getElementById("destination").value;
+
+      if (!vehicleId || !bookingDate || !startTime || !endTime || !purpose || !destination) {
+        showMessage("bookingMessage", "Please fill all booking fields.", "error");
+        return;
+      }
+
+      if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
+        showMessage("bookingMessage", "End time must be greater than start time.", "error");
+        return;
+      }
+
+      const bookings = getBookings();
+      const vehicles = getVehicles();
+
+      const conflict = bookings.find(b =>
+        String(b.vehicleId) === String(vehicleId) &&
+        b.bookingDate === bookingDate &&
+        isTimeOverlap(startTime, endTime, b.startTime, b.endTime)
+      );
+
+      if (conflict) {
+        showMessage("bookingMessage", "Selected date and time are already booked for this vehicle.", "error");
+        return;
+      }
+
+      const selectedVehicle = vehicles.find(v => String(v.id) === String(vehicleId));
+
+      const newBooking = {
+        id: Date.now(),
+        userId: currentUser.id,
+        userName: currentUser.name,
+        userEmail: currentUser.email,
+        vehicleId: Number(vehicleId),
+        bookingDate,
+        startTime,
+        endTime,
+        purpose,
+        destination,
+        status: "Booked"
+      };
+
+      bookings.push(newBooking);
+      setBookings(bookings);
+
+      document.getElementById("bookingVehicle").value = "";
+      document.getElementById("bookingDate").value = "";
+      document.getElementById("startTime").value = "";
+      document.getElementById("endTime").value = "";
+      document.getElementById("purpose").value = "";
+      document.getElementById("destination").value = "";
+
+      showMessage("bookingMessage", "Vehicle booked successfully. WhatsApp will open to notify the driver.", "success");
+      renderEmployeeDashboard();
+
+      sendDriverWhatsapp(selectedVehicle, newBooking);
+    }
+
+    function showBlockedTimes() {
+      const vehicleId = document.getElementById("bookingVehicle").value;
+      const bookingDate = document.getElementById("bookingDate").value;
+      const bookings = getBookings();
+      const vehicles = getVehicles();
+      const container = document.getElementById("blockedTimesContainer");
+
+      if (!vehicleId || !bookingDate) {
+        container.innerHTML = `<div class="message info">Select vehicle and date to view blocked time slots.</div>`;
+        return;
+      }
+
+      const vehicle = vehicles.find(v => String(v.id) === String(vehicleId));
+      const blocked = bookings.filter(b =>
+        String(b.vehicleId) === String(vehicleId) &&
+        b.bookingDate === bookingDate
+      );
+
+      if (blocked.length === 0) {
+        container.innerHTML = `<div class="message success">No blocked times for ${vehicle.name} on ${bookingDate}.</div>`;
+        return;
+      }
+
+      let html = `<div class="message info">Blocked slots for <strong>${vehicle.name}</strong> on <strong>${bookingDate}</strong>.</div>`;
+      html += `
+        <table>
+          <thead>
+            <tr>
+              <th>Booked By</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      blocked.forEach(b => {
+        html += `
+          <tr>
+            <td>${b.userName}</td>
+            <td>${b.startTime}</td>
+            <td>${b.endTime}</td>
+            <td>${b.purpose}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function renderMyBookings() {
+      const currentUser = getCurrentUser();
+      const bookings = getBookings().filter(b => b.userId === currentUser.id);
+      const vehicles = getVehicles();
+      const container = document.getElementById("myBookingsContainer");
+
+      if (bookings.length === 0) {
+        container.innerHTML = `<div class="message info">You have no bookings yet.</div>`;
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Driver</th>
+              <th>Date</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Purpose</th>
+              <th>Destination</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      bookings.forEach(b => {
+        const vehicle = vehicles.find(v => v.id === b.vehicleId);
+        html += `
+          <tr>
+            <td>${vehicle ? vehicle.name + " (" + vehicle.number + ")" : "Unknown"}</td>
+            <td>${vehicle ? vehicle.driver_name + "<br>" + vehicle.driver_phone : "-"}</td>
+            <td>${b.bookingDate}</td>
+            <td>${b.startTime}</td>
+            <td>${b.endTime}</td>
+            <td>${b.purpose}</td>
+            <td>${b.destination}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function renderAllBookings() {
+      const bookings = getBookings();
+      const vehicles = getVehicles();
+      const container = document.getElementById("allBookingsContainer");
+
+      if (bookings.length === 0) {
+        container.innerHTML = `<div class="message info">No bookings found.</div>`;
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Vehicle</th>
+              <th>Driver</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Purpose</th>
+              <th>Destination</th>
+              <th>Notify Driver</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      bookings.forEach(b => {
+        const vehicle = vehicles.find(v => v.id === b.vehicleId);
+
+        html += `
+          <tr>
+            <td>${b.userName}<br>${b.userEmail}</td>
+            <td>${vehicle ? vehicle.name + " (" + vehicle.number + ")" : "Unknown"}</td>
+            <td>${vehicle ? vehicle.driver_name + "<br>" + vehicle.driver_phone : "-"}</td>
+            <td>${b.bookingDate}</td>
+            <td>${b.startTime} - ${b.endTime}</td>
+            <td>${b.purpose}</td>
+            <td>${b.destination}</td>
+            <td>
+              <button class="action-btn notify-btn" onclick="notifyDriverFromAdmin(${b.id})">Notify</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function notifyDriverFromAdmin(bookingId) {
+      const bookings = getBookings();
+      const vehicles = getVehicles();
+
+      const booking = bookings.find(b => b.id === bookingId);
+      if (!booking) {
+        alert("Booking not found.");
+        return;
+      }
+
+      const vehicle = vehicles.find(v => v.id === booking.vehicleId);
+      if (!vehicle) {
+        alert("Vehicle not found.");
+        return;
+      }
+
+      sendDriverWhatsapp(vehicle, booking);
+    }
+
+    try {
+      initializeData();
+      resetVehicleForm();
+      showDashboard();
+    } catch (error) {
+      console.error(error);
+      alert("Error loading the system. Please check console.");
+    }
+  </script>
+</body>
+</html>
